@@ -26,12 +26,15 @@ class RequirementsDocumentBuilder {
     project?: string
     requirements?: RequirementDescription[]
 
-    static instance = new RequirementsDocumentBuilder();
+    private static instance: RequirementsDocumentBuilder;
 
     private constructor() {
     }
 
     static getInstance(): RequirementsDocumentBuilder {
+        if (!this.instance) {
+            this.instance = new RequirementsDocumentBuilder();
+        }
         return RequirementsDocumentBuilder.instance;
     }
 
