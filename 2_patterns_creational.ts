@@ -24,11 +24,12 @@ class RequirementsDocumentBuilder {
     author?: string
     name?: string
     project?: string
-    requirements?: RequirementDescription[]
+    requirements: RequirementDescription[]
 
     private static instance: RequirementsDocumentBuilder;
 
     private constructor() {
+        this.requirements = [];
     }
 
     static getInstance(): RequirementsDocumentBuilder {
@@ -53,8 +54,8 @@ class RequirementsDocumentBuilder {
         return this;
     }
 
-    setRequirements(requirements: RequirementDescription[]): RequirementsDocumentBuilder {
-        this.requirements = requirements;
+    addRequirement(requirement: RequirementDescription): RequirementsDocumentBuilder {
+        this.requirements.push(requirement);
         return this;
     }
 
@@ -83,7 +84,6 @@ class CommandLineInterface {
     }
 
     private createDocument() {
-        this.builder.setRequirements(this.requirements);
         const doc = this.builder.build();
         doc.print();
     }
@@ -146,7 +146,7 @@ class CommandLineInterface {
             description: inq.description
         };
 
-        this.requirements.push(req);
+        this.builder.addRequirement(req);
         console.log("Requirement added!");
     }
 
